@@ -1,0 +1,118 @@
+CREATE TYPE colors AS ENUM('Cherry', 'Natural Ash', 'White Ash', 'Red Oak', 'Natural Oak', 'Walnut');
+
+CREATE TABLE PRODUCT(
+    PRODUCT_ID INTEGER NOT NULL, 
+    PRODUCT_DESCRIPTION VARCHAR(50), 
+    PRODUCT_FINISH colors,
+    STANDARD_PRICE DECIMAL(8,2),
+    CONSTRAINT PRODUCT_PK PRIMARY KEY(PRODUCT_ID)
+);
+
+CREATE TABLE CUSTOMER(
+    CUSTOMER_ID INTEGER NOT NULL, 
+    CUSTOMER_NAME VARCHAR(25) NOT NULL, 
+    CUSTOMER_ADDRESS VARCHAR(30),
+    CITY VARCHAR(20),
+    POSTAL_CODE VARCHAR(9),
+    CONSTRAINT CUSTOMER_PK PRIMARY KEY (CUSTOMER_ID)
+);
+
+CREATE TABLE ORDERT(
+    ORDER_ID INTEGER NOT NULL,
+    ORDER_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CUSTOMER_ID INTEGER NOT NULL,
+    CONSTRAINT ORDER_PK PRIMARY KEY(ORDER_ID),
+    CONSTRAINT ORDER_FK FOREIGN KEY(CUSTOMER_ID) REFERENCES CUSTOMER(CUSTOMER_ID)
+);
+
+CREATE TABLE ORDER_LINE(
+    ORDER_ID INTEGER NOT NULL, 
+    PRODUCT_ID INTEGER NOT NULL, 
+    ORDERED_QUANTITY INTEGER,
+    CONSTRAINT ORDER_LINE_PK PRIMARY KEY (ORDER_ID, PRODUCT_ID),
+    CONSTRAINT ORDER_LINE_FK1 FOREIGN KEY (ORDER_ID) REFERENCES ORDERT(ORDER_ID),
+    CONSTRAINT ORDER_LINE_FK2 FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT(PRODUCT_ID)
+);
+
+INSERT INTO CUSTOMER (CUSTOMER_ID, CUSTOMER_NAME, CUSTOMER_ADDRESS, CITY, POSTAL_CODE)
+VALUES
+    (10001, 'จอน', 'ปทุมวัน', 'กรุงเทพ', '10330'),
+    (10002, 'แสงทอง', 'บางกอกใหญ่', 'กรุงเทพ', '10600'),
+    (10003, 'สายฟ้า', 'บางกอกน้อย', 'กรุงเทพ', '10700'),
+    (10004, 'มารศรี', 'บางกอกน้อย', 'กรุงเทพ', '10700'),
+    (10005, 'ธรรณ', 'ปทุมวัน', 'กรุงเทพ', '10330'),
+    (10006, 'ธนา', 'ลาดพร้าว', 'กรุงเทพ', '10230'),
+    (10007, 'จันทร์เจ้า', 'บางกระปิ', 'กรุงเทพ', '10310'),
+    (10008, 'ปาริชาต', 'ตลิ่งชัน', 'กรุงเทพ', '10310'),
+    (10009, 'สมวัย', 'บางเขน', 'กรุงเทพ', '10230');
+
+INSERT INTO ORDERT (ORDER_ID, ORDER_DATE, CUSTOMER_ID)
+VALUES
+    (2, '2020-01-08 12:00:00', 10009),
+    (3, '2020-01-10 23:00:00', 10001),
+    (4, '2020-01-11 23:00:00', 10001),
+    (5, '2020-01-12 23:00:00', 10001),
+    (6, '2020-01-13 23:00:00', 10001),
+    (7, '2020-01-14 23:00:00', 10001),
+    (8, '2020-01-15 23:00:00', 10001),
+    (9, '2020-01-16 23:00:00', 10001),
+    (10, '2020-01-17 23:00:00', 10001),
+    (11, '2020-01-18 23:00:00', 10001),
+    (12, '2020-01-19 23:00:00', 10001),
+    (14, '2020-01-20 23:00:00', 10001),
+    (15, '2020-01-21 23:00:00', 10001),
+    (16, '2020-01-10 23:00:00', 10002),
+    (17, '2020-01-11 23:00:00', 10002),
+    (18, '2020-01-12 23:00:00', 10002),
+    (19, '2020-01-13 23:00:00', 10002),
+    (20, '2020-01-14 23:00:00', 10002),
+    (21, '2020-01-15 23:00:00', 10002),
+    (22, '2020-01-16 23:00:00', 10002),
+    (23, '2020-01-17 23:00:00', 10002),
+    (24, '2020-01-18 23:00:00', 10002),
+    (25, '2020-01-19 23:00:00', 10002),
+    (26, '2020-01-20 23:00:00', 10002),
+    (27, '2020-01-21 23:00:00', 10002),
+    (28, '2020-01-22 23:00:00', 10002),
+    (29, '2020-01-23 23:00:00', 10002),
+    (30, '2020-01-24 23:00:00', 10002),
+    (31, '2020-01-25 23:00:00', 10002),
+    (32, '2020-01-26 23:00:00', 10002),
+    (33, '2020-01-27 23:00:00', 10002),
+    (34, '2020-01-28 23:00:00', 10002),
+    (35, '2020-01-29 23:00:00', 10002),
+    (36, '2020-01-24 23:00:00', 10003),
+    (37, '2020-01-25 23:00:00', 10003),
+    (38, '2020-01-26 23:00:00', 10003),
+    (39, '2020-01-27 23:00:00', 10003),
+    (40, '2020-01-28 23:00:00', 10003),
+    (41, '2020-01-29 23:00:00', 10008),
+    (42, '2020-01-27 23:00:00', 10008),
+    (43, '2020-01-28 23:00:00', 10008),
+    (44, '2020-01-29 23:00:00', 10008);
+
+INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_DESCRIPTION, PRODUCT_FINISH, STANDARD_PRICE)
+VALUES
+    (1, 'Stool bar', 'Red Oak', 250.00),
+    (2, 'Arm chair', 'Walnut', 1200.00),
+    (3, 'Cabinet', 'White Ash', 500.00),
+    (4, 'Triple Cabinet', 'Natural Ash', 1500.00),
+    (5, 'Sofabed', 'Cherry', 7500.00),
+    (6, 'Lazy Boy', 'White Ash', 2000.00);
+
+INSERT INTO ORDER_LINE (ORDER_ID, PRODUCT_ID, ORDERED_QUANTITY)
+VALUES
+    (2, 2, 3),
+    (2, 3, 10),
+    (2, 4, 1),
+    (2, 5, 10),
+    (3, 1, 10),
+    (3, 3, 11),
+    (3, 5, 1),
+    (4, 6, 10),
+    (5, 1, 1),
+    (5, 2, 5),
+    (5, 3, 5),
+    (5, 4, 5),
+    (5, 5, 5),
+    (5, 6, 5);
