@@ -1,5 +1,5 @@
-SELECT postal_code,COUNT(postal_code) as customer_count
+SELECT postal_code,COUNT(customer_id) AS customer_numbers
 FROM customer
 GROUP BY postal_code
-HAVING COUNT(postal_code) > 1
-ORDER BY customer_count DESC;
+HAVING COUNT(customer_id) > 1
+ORDER BY customer_numbers DESC;
