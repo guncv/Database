@@ -450,7 +450,7 @@ CREATE TABLE ORDER_LINE(
     CONSTRAINT ORDER_LINE_FK2 FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT(PRODUCT_ID));
 
 
-\copy customer FROM '/Users/duangdaowichadakul/Desktop/2110322_DBSYS_2566_1/ordersystem/customer.csv' DELIMITER ',' CSV;
+\copy customer FROM '/Users/guncv/Desktop/File_for_exercise/ordersystem/customer.csv' DELIMITER ',' CSV;
 
 \copy product FROM '/Users/duangdaowichadakul/Desktop/2110322_DBSYS_2566_1/ordersystem/product.csv' DELIMITER ',' CSV;
 
